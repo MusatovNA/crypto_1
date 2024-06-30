@@ -12,7 +12,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Text.Json;
-using Newtonsoft.Json;
 
 namespace crypto_1.View
 {
@@ -64,17 +63,20 @@ namespace crypto_1.View
 
             resultt.Text += json;
 
-            StreamWriter file = new StreamWriter("D:\\crypto.json");
+            var enidata = new data_();
+
+            string serialized = JsonSerializer.Serialize(enidata);
+            File.WriteAllText("D:/crypto.json", serialized);
 
 
-            file.Write(client.DownloadString(URL.ToString()));
-            file.Close();
 
-           
-            var purchaseJson = File.ReadAllText("D:\\crypto.json") ;
-            dynamic example = JsonConvert.DeserializeObject(purchaseJson);
 
-            nameCrypt.Content = example;
+
+        }
+
+        public void Write()
+        {
+            
         }
     }
 }
