@@ -9,13 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <Compile Remove="Modules\**" />
+    <Compile Remove="ViewModules\**" />
+    <EmbeddedResource Remove="Modules\**" />
+    <EmbeddedResource Remove="ViewModules\**" />
+    <None Remove="ViewModules\**" />
+    <Page Remove="ViewModules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\" />
-    <Folder Include="ViewModules\" />
+    <PackageReference Include="AtomicCore.BlockChain.ExplorerAPI" Version="1.4.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
