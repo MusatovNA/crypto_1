@@ -29,27 +29,31 @@ namespace crypto_1
             queryString["limit"] = "1";
             queryString["convert"] = currency;
             URL.Query = queryString.ToString();
-            var client = new WebClient();
-            client.Headers.Add("X-CMC_PRO_API_KEY", API_KEY);
-            client.Headers.Add("Accepts", "application/json");
-            try
-            {
-                var json = client.DownloadString(URL.ToString());
-                File.WriteAllText("D://exchangeRateInfo.json", json);
-                string RateInfjson = File.ReadAllText("D://exchangeRateInfo.json");
-                ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
-                exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(RateInfjson)!;      
-                return exchangeRateInfo;
-               
-            }
-            catch
-            {
-                ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
-                return exchangeRateInfo;
 
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", API_KEY);
+                client.DefaultRequestHeaders.Add("Accepts", "application/json");
+
+                try
+                {
+                    var response = await client.GetAsync(URL.ToString());
+                    response.EnsureSuccessStatusCode();
+                    var json = await response.Content.ReadAsStringAsync();
+                    File.WriteAllText("D://exchangeRateInfo.json", json);
+                    string RateInfjson = File.ReadAllText("D://exchangeRateInfo.json");
+                    ExchangeRateClass.ExchangeRateInf exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(RateInfjson)!;
+                    return exchangeRateInfo;
+                }
+                catch
+                {
+                    ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
+                    return exchangeRateInfo;
+                }
             }
+
+
         }
-     
-
     }
+
 }
