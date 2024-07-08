@@ -18,27 +18,28 @@ namespace crypto_1
     {
         public class SolanaSignaturesFetcher
         {
-           
-            
-            
+
+
+
             private readonly HttpClient _httpClient = new HttpClient();
-            private readonly string _apiKeyId = "fkHaycnpjmpr1EJ";
-            private readonly string _apiSecretKey = "7yvFvedxMMLQ57z";
+            private readonly string _apiKeyId = "ccxWZrznhDcjstX";
+            private readonly string _apiSecretKey = "dHgbwesvtNAwza7";
+            public ErrorsClass SolError = new ErrorsClass();
 
 
 
-            
+
             public SolanaSignaturesFetcher()
             {
+                SolError.haveErrors = false;
                 _httpClient.DefaultRequestHeaders.Accept.Clear();
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 _httpClient.DefaultRequestHeaders.Add("APIKeyID", _apiKeyId);
                 _httpClient.DefaultRequestHeaders.Add("APISecretKey", _apiSecretKey);
             }
-           
-            private async Task GetWalletBalanceAsync(string publicKey)
-            {
 
+            public async Task<Decimal> GetBalance(string publicKey)
+            {
                 string mintAddress = "";
                 var requestContent = new
                 {
@@ -55,13 +56,17 @@ namespace crypto_1
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
                     File.WriteAllText("D://SolBalance.json", responseContent);
+                    string balanceInfJson = File.ReadAllText("D://SolBalance.json");
+                    SolBalanceDataModel.SolBalanceInf balanceinf = new SolBalanceDataModel.SolBalanceInf();
+                    balanceinf = JsonConvert.DeserializeObject<SolBalanceDataModel.SolBalanceInf>(balanceInfJson)!;
+                    return balanceinf.balance;
                 }
                 else
                 {
-                    //тут будет отчет об ишбке
+                    return 404;
                 }
             }
-            private async Task GetTransactionSignaturesAsync(string publicKey)
+            private async Task<string[]> GetTransactionSignatures(string publicKey)
             {
                 string requestUri = $"https://api.blockchainapi.com/v1/solana/wallet/mainnet-beta/{publicKey}/transactions";
 
@@ -70,10 +75,16 @@ namespace crypto_1
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     File.WriteAllText("D://SolTransactions.json", responseContent);
+                    string TransactionsInfJson = File.ReadAllText("D://SolTransactions.json");
+                    SolTransInfo txSignatures = new SolTransInfo();
+                    txSignatures.txSignatures = JsonConvert.DeserializeObject<string[]>(TransactionsInfJson)!;
+                    return txSignatures.txSignatures;   
                 }
                 else
                 {
-                    //тут будет отчет об ишбке
+                    SolTransInfo txSignatures = new SolTransInfo();
+                    txSignatures.txSignatures[0] = "404";
+                    return txSignatures.txSignatures;
                 }
             }
 
@@ -93,34 +104,8 @@ namespace crypto_1
                 }
             }
 
-            
 
-
-            public decimal GetBalance(string publicKey)
-            {
-                var fetcher = new SolanaSignaturesFetcher();
-                fetcher.GetWalletBalanceAsync(publicKey);
-
-                string balanceInfJson = File.ReadAllText("D://SolBalance.json");
-                SolBalanceDataModel.SolBalanceInf balanceinf = new SolBalanceDataModel.SolBalanceInf();
-                balanceinf = JsonConvert.DeserializeObject<SolBalanceDataModel.SolBalanceInf>(balanceInfJson)!;
-
-                return balanceinf.balance;
-
-            }
-
-            public void GetTransactions(string publicKey)
-            {
-                var fetcher = new SolanaSignaturesFetcher();
-                fetcher.GetTransactionSignaturesAsync(publicKey);
-
-                string TransactionsInfJson = File.ReadAllText("D://SolTransactions.json");
-               SolTransInfo txSignatures = new SolTransInfo();
-                txSignatures.txSignatures = JsonConvert.DeserializeObject<string[]>(TransactionsInfJson)!;
-
-               // return txSignatures.txSignatures;
-
-            }
+           
 
             public async Task GetTransactionsInfo(string txSignature)
             {

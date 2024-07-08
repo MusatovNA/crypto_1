@@ -22,15 +22,14 @@ using Newtonsoft.Json.Linq;
 using System.Security.Cryptography.Xml;
 using static crypto_1.SolWallet;
 using static crypto_1.BitWallet;
+using static WpfApp5.EthWallet;
+using crypto_1.Pages;
 
 public class RestClient;
 
 namespace crypto_1
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
+    
 
 
 
@@ -41,6 +40,8 @@ namespace crypto_1
         public MainWindow()
         {
             InitializeComponent();
+            WorkSpace.Content = new LoadingPage();
+
         }
 
         private void connect_Click(object sender, RoutedEventArgs e)
@@ -49,7 +50,7 @@ namespace crypto_1
             decimal Balance, exRate, exRateBalance;
             string rateName;
               
-            ExchangeRate rate = new ExchangeRate();
+           /* ExchangeRate rate = new ExchangeRate();
             if (Enter_Wallet_TextBox.Text == "")
             {
                 MessageBox.Show("адрес кошелька не введен!", "Ошибка!",button:MessageBoxButton.OK,MessageBoxImage.Error);
@@ -62,7 +63,12 @@ namespace crypto_1
                         rateName = "USD";
                     else
                         rateName = "RUB";
+
                     BitcoinSignaturesFetcher Bit = new BitcoinSignaturesFetcher();
+
+                    EthSignaturesFetcher Eth = new EthSignaturesFetcher();
+                    Eth.GetBalance("0x5B5B69f4E0add2Df5d2176D7dBd20B4897bc7eC4");
+
                     Balance = Bit.GetBalance($"{Enter_Wallet_TextBox.Text}") / 100000000;
                     exRate = rate.GetExchRate(1, rateName);
                     Wallet_Name.Content = rateName;
@@ -86,16 +92,38 @@ namespace crypto_1
                     current_Balance.Content = Balance;
                     current_Balance_in_currency.Content = exRateBalance;
                    
-                }
+                }*/
             }
 
+        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            WorkSpace.Content = new HomePage();
+        }
+        
+
+
+
+        private void Crypto_Portf_Button_Click(object sender, RoutedEventArgs e)
+        {
+            WorkSpace.Content = new PortfolioPage();
         }
 
+
+
+
+        private void Crypto_Inf_Button_Click(object sender, RoutedEventArgs e)
+        {
+            WorkSpace.Content = new InfoPage();
+
+        }
+    }
+
+        
     }
 
    
 
 
-}
+
 
 

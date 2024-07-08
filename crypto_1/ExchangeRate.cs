@@ -9,6 +9,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
+using static crypto_1.ExchangeRateClass;
 
 namespace crypto_1
 {
@@ -17,39 +18,38 @@ namespace crypto_1
         private readonly HttpClient _httpClient = new HttpClient();
         private static string API_KEY = "b79cab96-015f-4f21-bfba-6dcf5edb796c";
 
+        //"b79cab96-015f-4f21-bfba-6dcf5edb796c";
 
-        private async Task GetExchRateAsync(int cryptType, string currency)
+        public async Task<ExchangeRateClass.ExchangeRateInf> GetExchRate(int cryptType, string currency)
         {
+
             var URL = new UriBuilder("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest");
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-
             queryString["start"] = $"{cryptType}";
-
             queryString["limit"] = "1";
             queryString["convert"] = currency;
-
             URL.Query = queryString.ToString();
-
             var client = new WebClient();
-
             client.Headers.Add("X-CMC_PRO_API_KEY", API_KEY);
             client.Headers.Add("Accepts", "application/json");
+            try
+            {
+                var json = client.DownloadString(URL.ToString());
+                File.WriteAllText("D://exchangeRateInfo.json", json);
+                string RateInfjson = File.ReadAllText("D://exchangeRateInfo.json");
+                ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
+                exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(RateInfjson)!;      
+                return exchangeRateInfo;
+               
+            }
+            catch
+            {
+                ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
+                return exchangeRateInfo;
 
-            var json = client.DownloadString(URL.ToString());
-            File.WriteAllText("D://exchangeRateInfo.json", json);
+            }
         }
-        public decimal GetExchRate(int cryptType, string currency)
-        {
-            GetExchRateAsync(cryptType, currency);
-            string RateInfjson = File.ReadAllText("D://exchangeRateInfo.json");
-            ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
-            exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(RateInfjson)!;
-            if(currency == "USD")
-                 return exchangeRateInfo.data[0].quote.USD.price;
-            else
-                 return exchangeRateInfo.data[0].quote.RUB.price;
-
-        }
+     
 
     }
 }
