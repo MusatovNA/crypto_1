@@ -22,8 +22,8 @@ namespace crypto_1
 
 
             private readonly HttpClient _httpClient = new HttpClient();
-            private readonly string _apiKeyId = "ccxWZrznhDcjstX";
-            private readonly string _apiSecretKey = "dHgbwesvtNAwza7";
+            private readonly string _apiKeyId = "BqE2LOyxB4vd9JO";
+            private readonly string _apiSecretKey = "1D5yp9Xpip0sXuq";
             public ErrorsClass SolError = new ErrorsClass();
 
 
@@ -38,7 +38,7 @@ namespace crypto_1
                 _httpClient.DefaultRequestHeaders.Add("APISecretKey", _apiSecretKey);
             }
 
-            public async Task<Decimal> GetBalance(string publicKey)
+            public async Task<decimal> GetBalance(string publicKey)
             {
                 string mintAddress = "";
                 var requestContent = new

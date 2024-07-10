@@ -11,14 +11,11 @@
         <Label Content="Coinmarketcup.com" HorizontalAlignment="Left" Margin="56,130,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Coinmarket_Status" HorizontalAlignment="Left" Margin="179,129,0,0" VerticalAlignment="Top" Height="23" Width="81"/>
 
-        <Label Content="Solanablockchainapi.com" HorizontalAlignment="Left" Margin="30,208,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Solana_Status" HorizontalAlignment="Left" Margin="178,213,0,0" VerticalAlignment="Top" Height="23" Width="82"/>
+        <Label Content="Solanablockchainapi.com" HorizontalAlignment="Left" Margin="31,183,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Solana_Status" HorizontalAlignment="Left" Margin="179,188,0,0" VerticalAlignment="Top" Height="23" Width="82"/>
 
-        <Label Content="Bitcoinblockchainapi.com" HorizontalAlignment="Left" Margin="28,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.464"/>
-        <Label x:Name="Bitcoin_Status" HorizontalAlignment="Left" Margin="178,185,0,0" VerticalAlignment="Top" Height="23" Width="82"/>
-
-        <Label Content="Etheriumblockchainapi.com" HorizontalAlignment="Left" Margin="17,156,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Etherium_Status" HorizontalAlignment="Left" Margin="179,157,0,0" VerticalAlignment="Top" Height="23" Width="81"/>
+        <Label Content="Bitcoinblockchainapi.com" HorizontalAlignment="Left" Margin="29,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.464"/>
+        <Label x:Name="Bitcoin_Status" HorizontalAlignment="Left" Margin="179,0,0,0" VerticalAlignment="Center" Height="23" Width="82"/>
         <Button x:Name="Retry_Button" Content="retry" Visibility="Hidden" HorizontalAlignment="Center" Margin="0,254,0,0" VerticalAlignment="Top" Width="64" Click="RetryClick"/>
 
 

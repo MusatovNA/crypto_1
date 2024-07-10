@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using static crypto_1.MainWindow;
 
 namespace crypto_1
 {
@@ -9,6 +10,7 @@ namespace crypto_1
     /// </summary>
     public partial class App : Application
     {
+       
     }
 
 }

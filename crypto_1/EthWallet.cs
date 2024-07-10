@@ -9,6 +9,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
+using System.Net;
+using AtomicCore.BlockChain.ExplorerAPI;
+using crypto_1;
 namespace WpfApp5
 {
     internal class EthWallet
@@ -17,8 +20,7 @@ namespace WpfApp5
         public class EthSignaturesFetcher
         {
             private readonly HttpClient _httpClient = new HttpClient();
-            private readonly string _apiKeyId = "WA2MJSVRZSN7X3JT446DS8D4KFQQ7CM9XF";
-
+            private readonly string _apiKeyId = "MXDERSH8RUN7AD9X15KDM1FW5MF4TBZBFT";
 
             public EthSignaturesFetcher()
             {
@@ -27,35 +29,62 @@ namespace WpfApp5
                 _httpClient.DefaultRequestHeaders.Add("APIKeyID", _apiKeyId);
 
             }
-            private async Task GetEthGetWalletBalanceAsync(string publicKey)
+            public async Task<decimal> GetBalance(string publicKey)
             {
-
+                
                 var requestUri = $"https://api.etherscan.io/api?module=account&action=balance&address={publicKey}&tag=latest&apikey={_apiKeyId}";
 
                 HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    File.WriteAllText("D://EthBalance.json", responseContent);
+                    try
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        EthBalanceDataModel balanceinf = new EthBalanceDataModel();
+                        balanceinf = JsonConvert.DeserializeObject<EthBalanceDataModel>(responseContent)!;
+                        return balanceinf.result / 1000000000000000000;
+                    }
+                    catch
+                    {
+                        return 404;
+                    }
                 }
                 else
                 {
-                    //тут будет отчет об ишбке
+                    return 404;
+
                 }
             }
-
-
-            public long GetBalance(string publicKey)
+            public async Task<EthTransHistory> GetEthTransactions(string publicKey)
             {
-                var fetcher = new EthSignaturesFetcher();
-                fetcher.GetEthGetWalletBalanceAsync(publicKey);
+                string requestUri = $"https://api.etherscan.io/api?module=account&action=txlist&address={publicKey}&startblock=0&endblock=99999999&page=1&offset=1000&sort=desc&apikey={_apiKeyId}";
 
-                string balanceInfJson = File.ReadAllText("D://EthBalance.json");
-                EthBalanceDataModel balanceinf = new EthBalanceDataModel();
-                balanceinf = JsonConvert.DeserializeObject<EthBalanceDataModel>(balanceInfJson)!;
-             
-                return balanceinf.rezult;
+                HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    var apiResponse = JsonConvert.DeserializeObject<EthTransHistory>(responseContent);
 
+                    if (apiResponse.status == "1") // Проверяем статус успешного ответа
+                    {
+                        var transactionHistory = apiResponse.result;
+                        return apiResponse;
+                        
+                    }
+                    else 
+                    {
+                        var transactionHistore = new EthTransHistory();
+                        return transactionHistore;
+                    }
+
+
+                }
+                else 
+                {
+                    var transactionHistory = new EthTransHistory();
+                    return transactionHistory;
+                }
+                
             }
         }
     }

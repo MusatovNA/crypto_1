@@ -24,6 +24,7 @@ namespace crypto_1.Pages
         public HomePage()
         {
             InitializeComponent();
+            TryAgain_Button.Visibility = Visibility.Hidden;
             Crypt_ComboBox.Items.Add("Bitcoin");
             Crypt_ComboBox.Items.Add("Etherium");
             Crypt_ComboBox.Items.Add("Solana");
@@ -35,7 +36,7 @@ namespace crypto_1.Pages
         }
 
 
-        ExchangeRateClass.ExchangeRateInf Rate = new ExchangeRateClass.ExchangeRateInf();
+        decimal Rate;
 
         private async Task<decimal> tryGetResponce(string cryptType, string currency)
         {
@@ -62,14 +63,10 @@ namespace crypto_1.Pages
             }
 
             Rate = await exchangeRate.GetExchRate(sryptTypeResp, currency);
-            if (Rate == null) { return 404; }
+            if (Rate == 404) { return 404; }
             else
             {
-                if (currency == "USD")
-                    return Rate.data[0].quote.USD.price;
-                else
-                    return Rate.data[0].quote.RUB.price;
-
+                return Rate;
             }
 
         }
@@ -87,7 +84,7 @@ namespace crypto_1.Pages
         }
 
 
-
+        
 
         private async Task Crypt_ComboBox_SelectionChangedAsync()
         {
@@ -95,8 +92,18 @@ namespace crypto_1.Pages
             {
                 decimal newRate = await tryGetResponce(Crypt_ComboBox.SelectedItem.ToString(), Сurrency_ComboBox.SelectedItem.ToString());
                 tryGetResponce(Crypt_ComboBox.SelectedItem.ToString(), Сurrency_ComboBox.SelectedItem.ToString());
-                Crypt_TextBox.Text = "1";
-                Currency_TextBox.Text = $"{newRate}";
+                if (newRate == 404)
+                {
+                    TryAgain_Button.Visibility = Visibility.Visible;
+                    Currency_TextBox.Text = "0";
+                    Error_Label.Content = "Error";
+                    MessageBox.Show("Check your internet connection or try later", "Error", button: MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else 
+                {
+                    TryAgain_Button.Visibility = Visibility.Hidden;
+                    Currency_TextBox.Text = $"{newRate}";
+                }
             }
 
         }
@@ -105,12 +112,26 @@ namespace crypto_1.Pages
             if (Crypt_ComboBox.SelectedItem != null)
             {
                 decimal newRate = await tryGetResponce(Crypt_ComboBox.SelectedItem.ToString(), Сurrency_ComboBox.SelectedItem.ToString());
-                Crypt_TextBox.Text = "1";
-                Currency_TextBox.Text = $"{newRate}";
+                if (newRate == 404)
+                {
+                    TryAgain_Button.Visibility = Visibility.Visible;
+                    Currency_TextBox.Text = "0";
+                    Error_Label.Content = "Error";
+                    MessageBox.Show("Check your internet connection or try later", "Error", button: MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    TryAgain_Button.Visibility = Visibility.Hidden;
+                    Currency_TextBox.Text = $"{newRate}";
+                }
             }
 
         }
-        
+        private void TryAgain_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Task task = Crypt_ComboBox_SelectionChangedAsync();
+        }
+
         private void Currency_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
           

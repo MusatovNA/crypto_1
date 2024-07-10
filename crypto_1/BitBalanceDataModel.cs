@@ -14,7 +14,7 @@ namespace crypto_1
             public string address { get; set; }
             public long total_received { get; set; }
             public long total_sent { get; set; }
-            public long balance { get; set; }
+            public decimal balance { get; set; }
             public int unconfirmed_balance { get; set; }
             public long final_balance { get; set; }
             public int n_tx { get; set; }

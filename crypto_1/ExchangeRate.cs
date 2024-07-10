@@ -16,11 +16,11 @@ namespace crypto_1
     internal class ExchangeRate
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        private static string API_KEY = "b79cab96-015f-4f21-bfba-6dcf5edb796c";
+        private static string API_KEY = "b619b714-e216-4b07-a68d-014b4b8b1099";
 
         //"b79cab96-015f-4f21-bfba-6dcf5edb796c";
 
-        public async Task<ExchangeRateClass.ExchangeRateInf> GetExchRate(int cryptType, string currency)
+        public async Task<Decimal> GetExchRate(int cryptType, string currency)
         {
 
             var URL = new UriBuilder("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest");
@@ -40,15 +40,17 @@ namespace crypto_1
                     var response = await client.GetAsync(URL.ToString());
                     response.EnsureSuccessStatusCode();
                     var json = await response.Content.ReadAsStringAsync();
-                    File.WriteAllText("D://exchangeRateInfo.json", json);
-                    string RateInfjson = File.ReadAllText("D://exchangeRateInfo.json");
-                    ExchangeRateClass.ExchangeRateInf exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(RateInfjson)!;
-                    return exchangeRateInfo;
+                    ExchangeRateClass.ExchangeRateInf exchangeRateInfo = JsonConvert.DeserializeObject<ExchangeRateClass.ExchangeRateInf>(json)!;
+                    if(currency == "USD")
+                         return exchangeRateInfo.data[0].quote.USD.price;
+                    else
+                        return exchangeRateInfo.data[0].quote.RUB.price;
+
                 }
                 catch
                 {
                     ExchangeRateClass.ExchangeRateInf exchangeRateInfo = new ExchangeRateClass.ExchangeRateInf();
-                    return exchangeRateInfo;
+                    return 404;
                 }
             }
 

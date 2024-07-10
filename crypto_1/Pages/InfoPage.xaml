@@ -5,16 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:crypto_1.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1259"
       Title="InfoPage">
 
     <Grid Background="Honeydew">
         <TextBox x:Name="Enter_Wallet"   HorizontalAlignment="Center" Margin="0,65,0,0" TextWrapping="Wrap" FontSize="15"  VerticalAlignment="Top" Width="394" Height="29"/>
-        <Label Content="Enter your wallet" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top"/>
+        <Label Content="Enter your wallet" HorizontalAlignment="Left" Margin="579,16,0,0" VerticalAlignment="Top" FontSize="16"/>
         <ComboBox x:Name="Select_Crypt" HorizontalAlignment="Left" Margin="454,22,0,0" VerticalAlignment="Top" Width="120">
         </ComboBox>
-        <Button x:Name="Check" Content="Check" HorizontalAlignment="Left" Margin="615,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.267,0.332" Click="Check_Click"/>
-        <Label x:Name="Status_Label"  HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Height="31" Width="202"/>
+        <Button x:Name="Check" Content="Check" HorizontalAlignment="Left" Margin="857,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.267,0.332" Click="Check_Click"/>
+        <Label x:Name="Status_Label"  HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Height="31" Width="202" FontSize="16"/>
         <ListView x:Name="tx_List" Margin="10,151,10,10">
             <ListView.View>
                 <GridView >

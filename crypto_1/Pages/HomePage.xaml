@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:crypto_1.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1259"
       Title="HomePage">
 
     <Grid Background="AntiqueWhite">
@@ -17,14 +17,14 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Content="current course" HorizontalAlignment="Left" Margin="314,10,0,0" VerticalAlignment="Top" Height="auto" Width="auto" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold"/>
+        <Label Content="current course" HorizontalAlignment="Left" Margin="543,0,0,0" VerticalAlignment="Center" Height="auto" Width="auto" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold"/>
 
-        <Label Content="to" HorizontalAlignment="Left" Margin="385,46,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="33" Grid.ColumnSpan="2" FontSize="22"/>
-        <ComboBox x:Name="Сurrency_ComboBox" HorizontalAlignment="Left" Margin="23,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="241" Height="34" FontSize="24" Grid.Column="1" SelectionChanged="Сurrency_ComboBox_SelectionChanged"/>
-        <ComboBox x:Name="Crypt_ComboBox" HorizontalAlignment="Left" Margin="136,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="241" Height="34" FontSize="24" SelectionChanged="Crypt_ComboBox_SelectionChanged"/>
-        <TextBox x:Name="Currency_TextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="23,167,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241" Height="30" FontSize="24" TextChanged="Currency_TextBox_TextChanged"/>
-        <TextBox x:Name="Crypt_TextBox" HorizontalAlignment="Left" Margin="136,167,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241" Height="30" FontSize="24" TextChanged="Crypt_TextBox_TextChanged"/>
-        <Label x:Name="Error_Label" Content="" HorizontalAlignment="Left" Margin="374,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="56" Grid.ColumnSpan="2"/>
+        <Label Content="to" HorizontalAlignment="Left" Margin="613,46,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="33" Grid.ColumnSpan="2" FontSize="22"/>
+        <ComboBox x:Name="Сurrency_ComboBox" HorizontalAlignment="Left" Margin="66,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" Height="35" FontSize="24" Grid.Column="1" SelectionChanged="Сurrency_ComboBox_SelectionChanged"/>
+        <ComboBox x:Name="Crypt_ComboBox" HorizontalAlignment="Left" Margin="315,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="241" Height="34" FontSize="24" SelectionChanged="Crypt_ComboBox_SelectionChanged"/>
+        <TextBox x:Name="Currency_TextBox" HorizontalAlignment="Left" Margin="472,161,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="314" Height="47" FontSize="36" TextChanged="Currency_TextBox_TextChanged" Grid.ColumnSpan="2"/>
+        <Label x:Name="Error_Label" Content="" HorizontalAlignment="Left" Margin="372,104,0,0" Grid.Row="1" VerticalAlignment="Top" Width="56" Grid.ColumnSpan="2"/>
+        <Button x:Name="TryAgain_Button" Content="Try again!" HorizontalAlignment="Left" Margin="555,293,0,0" Grid.Row="1" VerticalAlignment="Top" Click="TryAgain_Button_Click" Height="54" Width="148" Grid.ColumnSpan="2" FontSize="24"/>
 
     </Grid>
 </Page>

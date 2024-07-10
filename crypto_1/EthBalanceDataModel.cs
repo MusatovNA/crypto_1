@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp5
+namespace crypto_1
 {
     internal class EthBalanceDataModel
     {
-            public string status { get; set; }
-            public long rezult { get; set; }
-            public string message { get; set; }
-           
+
+        public string status { get; set; }
+        public string message { get; set; }
+        public decimal result { get; set; }
 
     }
 }

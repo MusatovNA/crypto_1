@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:crypto_1"
         mc:Ignorable="d"
         
-        Title="MainWindow"  MaxHeight="700" MinWidth="1000" MinHeight="700" MaxWidth="1000" Height="447" >
+        Title="MainWindow"  MaxHeight="700" MinWidth="1500" MinHeight="700" MaxWidth="1500" Height="447" Width="996" >
 
 
     <Grid Margin="10,10,0,0">
@@ -19,14 +19,11 @@
             <RowDefinition Height="568"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Background="AliceBlue" Height="auto" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Width="119" Margin="0,0,0,10">
+        <StackPanel Background="AliceBlue" Height="auto" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Width="190" Margin="0,0,0,10">
             <Button x:Name="Home_Button"  FontSize="35" Height="50" MinWidth="50" Margin="10,10,5,5" Click="Home_Button_Click">Home</Button>
-            <Button x:Name="Crypto_Portf_Button"  FontSize="35" Height="50" MinWidth="50" Margin="10,10,5,5" Click="Crypto_Portf_Button_Click">Protf</Button>
+            <Button x:Name="Crypto_Portf_Button"  FontSize="35" Height="50" MinWidth="50" Margin="10,10,5,5" Click="Crypto_Portf_Button_Click">Portf</Button>
             <Button x:Name="Crypto_Inf_Button" FontSize="35" Height="50" MinWidth="50" Margin="10,10,5,5" Click="Crypto_Inf_Button_Click">Info</Button>
         </StackPanel>
         <Frame x:Name="WorkSpace" Background="CadetBlue" Margin="10,0,10,10" Grid.Column="1" Grid.Row="1"/>
-        <Label x:Name="nameCrypt" Content="" HorizontalAlignment="Left" Margin="457,0,0,0" VerticalAlignment="Center" Grid.Column="1" Height="26" Width="10" Grid.Row="1"/>
-        <Label x:Name="current_Balance" Content="" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Center" Height="44" Width="323" Grid.Column="1" Grid.Row="1"/>
-
     </Grid>
 </Window>

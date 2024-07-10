@@ -21,7 +21,7 @@ namespace crypto_1
         {
 
                 private readonly HttpClient _httpClient = new HttpClient();
-                private readonly string _apiKeyId = "14d6724c783043b6af4621b0c3fa5206";
+                private readonly string _apiKeyId = "c58dbe7eb48e4f2cb2ada4926fbd609a";
 
                 internal ErrorsClass BitError = new ErrorsClass();
 
@@ -59,16 +59,17 @@ namespace crypto_1
                 string requestUri = $"https://api.blockcypher.com/v1/btc/main/addrs/{publicKey}/balance";
 
                 HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
-                if (response.IsSuccessStatusCode)
-                {
+               try
+                { 
                     string responseContent = await response.Content.ReadAsStringAsync();
                     File.WriteAllText("D://BitBalance.json", responseContent);
                     string balanceInfJson = File.ReadAllText("D://BitBalance.json");
                     BitBalanceDataModel.BitBalanceInf balanceinf = new BitBalanceDataModel.BitBalanceInf();
                     balanceinf = JsonConvert.DeserializeObject<BitBalanceDataModel.BitBalanceInf>(balanceInfJson)!;
-                    return balanceinf.balance;
+
+                    return balanceinf.balance / 100000000;
                 }
-                else
+                catch
                 {
                    return 404;
                  
