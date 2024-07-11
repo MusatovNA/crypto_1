@@ -55,10 +55,9 @@ namespace crypto_1
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
-                    File.WriteAllText("D://SolBalance.json", responseContent);
-                    string balanceInfJson = File.ReadAllText("D://SolBalance.json");
+                   
                     SolBalanceDataModel.SolBalanceInf balanceinf = new SolBalanceDataModel.SolBalanceInf();
-                    balanceinf = JsonConvert.DeserializeObject<SolBalanceDataModel.SolBalanceInf>(balanceInfJson)!;
+                    balanceinf = JsonConvert.DeserializeObject<SolBalanceDataModel.SolBalanceInf>(responseContent)!;
                     return balanceinf.balance;
                 }
                 else
@@ -74,10 +73,8 @@ namespace crypto_1
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    File.WriteAllText("D://SolTransactions.json", responseContent);
-                    string TransactionsInfJson = File.ReadAllText("D://SolTransactions.json");
                     SolTransInfo txSignatures = new SolTransInfo();
-                    txSignatures.txSignatures = JsonConvert.DeserializeObject<string[]>(TransactionsInfJson)!;
+                    txSignatures.txSignatures = JsonConvert.DeserializeObject<string[]>(responseContent)!;
                     return txSignatures.txSignatures;   
                 }
                 else
@@ -88,7 +85,7 @@ namespace crypto_1
                 }
             }
 
-            private async Task GetTransactionInfoAsync(string txSignature)
+            private async Task GetTransactionInfo(string txSignature)
             {
                 string requestUri = $"https://api.blockchainapi.com/v1/solana/transaction/mainnet-beta/{txSignature}";
 
@@ -96,29 +93,18 @@ namespace crypto_1
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
-                    File.WriteAllText("D://SolTransactionsInfo.json", responseContent);
+                    SolTransactionInfoDataModel.SolTransInfo balanceinf = new SolTransactionInfoDataModel.SolTransInfo();
+                    balanceinf = JsonConvert.DeserializeObject<SolTransactionInfoDataModel.SolTransInfo>(responseContent)!;
                 }
                 else
                 {
-                    //тут будет отчет об ишбке
+                    
                 }
             }
 
 
            
 
-            public async Task GetTransactionsInfo(string txSignature)
-            {
-                var fetcher = new SolanaSignaturesFetcher();
-                await fetcher.GetTransactionInfoAsync(txSignature);
-
-                string balanceInfJson = File.ReadAllText("D://SolTransactionsInfo.json");
-                SolTransactionInfoDataModel.SolTransInfo balanceinf = new SolTransactionInfoDataModel.SolTransInfo();
-                balanceinf = JsonConvert.DeserializeObject<SolTransactionInfoDataModel.SolTransInfo>(balanceInfJson)!;
-
-               // return balanceinf.balance;
-
-            }
 
          
 

@@ -65,7 +65,7 @@ namespace WpfApp5
                     string responseContent = await response.Content.ReadAsStringAsync();
                     var apiResponse = JsonConvert.DeserializeObject<EthTransHistory>(responseContent);
 
-                    if (apiResponse.status == "1") // Проверяем статус успешного ответа
+                    if (apiResponse.status == "1") 
                     {
                         var transactionHistory = apiResponse.result;
                         return apiResponse;

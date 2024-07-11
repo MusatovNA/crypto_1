@@ -144,7 +144,6 @@ namespace crypto_1.Pages
                 TotalInCur_Label.Content = totalBalance;
 
             }
-            // Обновляем курс валюты и вызываем OnPropertyChanged
             if (summary.ExchangeRateValue != exchangeRate)
             {
                 summary.ExchangeRateValue = exchangeRate;
@@ -155,7 +154,6 @@ namespace crypto_1.Pages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Метод для вызова события изменения свойства
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -181,13 +179,11 @@ namespace crypto_1.Pages
             }
             public event PropertyChangedEventHandler PropertyChanged;
 
-            // Метод для вызова события изменения свойства
 
             ExchangeRate exchangeRate = new ExchangeRate();
 
             public decimal ExchangeRateValue { get; set; }
 
-            // Общий баланс в выбранной валюте
             public decimal TotalBalanceInSelectedCurrency
             {
                 get { return _totalBalanceInSelectedCurrency; }
@@ -201,7 +197,6 @@ namespace crypto_1.Pages
                 }
             }
 
-            // Метод для обновления общего баланса в выбранной валюте
 
             protected virtual void OnPropertyChanged(string propertyName)
             {
@@ -214,8 +209,6 @@ namespace crypto_1.Pages
                 ExchangeRateValue *= _totalBalance;
             }
 
-            // Событие изменения свойства
-            // Метод для вызова события изменения свойства
            
 
         }
